@@ -122,8 +122,33 @@ class Stack:
     def size(self):
         return self.doubly_linked_list.size()
 
-    def show(self):
-        self.doubly_linked_list.show()
+    def __iter__(self):
+        current_stack_node = self.doubly_linked_list.tail_node
+        while current_stack_node is not None:
+            yield current_stack_node.data
+            current_stack_node = current_stack_node.prev
+
+class Queue:
+    def __init__(self):
+        self.doubly_linked_list = DoublyLinkedList()
+
+    def is_empty(self):
+        return self.doubly_linked_list.size() == 0
+
+    def size(self):
+        return self.doubly_linked_list.size()
+
+    def enqueue(self, data):
+        return self.doubly_linked_list.insert_to_end(data)
+
+    def dequeue(self):
+        return self.doubly_linked_list.remove_head()
+
+    def __iter__(self):
+        current_queue_node = self.doubly_linked_list.head_node
+        while current_queue_node is not None:
+            yield current_queue_node.data
+            current_queue_node = current_queue_node.next
 
 if __name__ == '__main__':
     doubly_linked_list = DoublyLinkedList()
@@ -149,7 +174,8 @@ if __name__ == '__main__':
     stack.push('a')
     stack.push('3')
     stack.push([1, 2, 3])
-    stack.show()
+    for s in stack:
+        print(s)
     print(stack.top())
     print(stack.size())
     stack.pop()
@@ -157,3 +183,16 @@ if __name__ == '__main__':
     print(stack.empty())
     stack.pop()
     print(stack.empty())
+
+    queue = Queue()
+    queue.enqueue('a')
+    queue.enqueue('3')
+    queue.enqueue([1, 2, 3])
+    for q in queue:
+        print(q)
+    print(queue.size())
+    queue.dequeue()
+    queue.dequeue()
+    print(queue.is_empty())
+    queue.dequeue()
+    print(queue.is_empty())
