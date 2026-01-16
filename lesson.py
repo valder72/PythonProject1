@@ -17,14 +17,14 @@ class DoublyLinkedList:
         :param data:
         :return:
         """
-        new_node = Node(data)
+        new_first_node = Node(data)
         if self.head_node is None:
-            self.head_node = new_node
-            self.tail_node = new_node
+            self.head_node = new_first_node
+            self.tail_node = new_first_node
         else:
-            new_node.next = self.head_node
-            self.head_node.prev = new_node
-            self.head_node = new_node
+            new_first_node.next = self.head_node
+            self.head_node.prev = new_first_node
+            self.head_node = new_first_node
         self._size += 1
 
     def insert_to_end(self, data):
@@ -34,21 +34,39 @@ class DoublyLinkedList:
         :return:
         """
         new_last_node = Node(data)
-
+        if self.tail_node is None:
+            self.head_node = new_last_node
+            self.tail_node = new_last_node
+        else:
+            new_last_node.prev = self.tail_node
+            self.tail_node.next = new_last_node
+            self.tail_node = new_last_node
+        self._size += 1
 
     def remove_head(self):
         """
         remove first node of linked list
         :return:
         """
-        pass
+        if self.head_node is None:
+            return None
+        first_node_data = self.head_node.data
+        if self.head_node == self.tail_node:
+            self.head_node = None
+            self.tail_node = None
+            self._size -= 1
+            return first_node_data
+        self.head_node = self.head_node.next
+        self.head_node.prev.next = None
+        self.head_node.prev = None
+        self._size -= 1
+        return first_node_data
 
     def remove_tail(self):
         """
         remove last node of linked list
         :return:
         """
-
         if self.tail_node is None:
             return None
         last_node_data = self.tail_node.data
@@ -82,52 +100,60 @@ class DoublyLinkedList:
             current_node = current_node.next
         print(output)
 
-class Stack():
+
+class Stack:
     def __init__(self):
         self.doubly_linked_list = DoublyLinkedList()
 
     def push(self, data):
-        self.doubly_linked_list.insert_to_end(data)
+        return self.doubly_linked_list.insert_to_end(data)
 
     def pop(self):
-        self.doubly_linked_list.remove_tail()
-        
+        return self.doubly_linked_list.remove_tail()
 
+    def empty(self):
+        return self.doubly_linked_list.size() == 0
 
+    def top(self):
+        if self.doubly_linked_list.tail_node is None:
+            return None
+        return self.doubly_linked_list.tail_node.data
+
+    def size(self):
+        return self.doubly_linked_list.size()
+
+    def show(self):
+        self.doubly_linked_list.show()
 
 if __name__ == '__main__':
     doubly_linked_list = DoublyLinkedList()
-
-    # doubly_linked_list.insert_to_end('a')
-    # doubly_linked_list.insert_to_end('b')
     doubly_linked_list.insert_to_start('c')
-    doubly_linked_list.insert_to_start('abc')
+    doubly_linked_list.insert_to_end('abc')
     doubly_linked_list.insert_to_start(32)
     doubly_linked_list.insert_to_start(['a', '32', 32])
     doubly_linked_list.insert_to_start((['a'], 12))
     doubly_linked_list.show()
     print(doubly_linked_list.size())
-    # doubly_linked_list.insert_to_end('d')
-    #
-    # print("Node Data")
-    # doubly_linked_list.show()
-    #
-    # print("Remove First Node")
-    # doubly_linked_list.remove_head()
-    # print("Remove Last Node")
     doubly_linked_list.remove_tail()
     doubly_linked_list.show()
     doubly_linked_list.remove_tail()
     doubly_linked_list.show()
-    doubly_linked_list.remove_tail()
+    doubly_linked_list.remove_head()
     doubly_linked_list.show()
     doubly_linked_list.remove_tail()
     doubly_linked_list.show()
     doubly_linked_list.remove_tail()
     doubly_linked_list.show()
 
-    # print("Linked list after removing a node:")
-    # doubly_linked_list.show()
-    #
-    # print("Size of linked list :", end=" ")
-    # print(doubly_linked_list.size())
+    stack = Stack()
+    stack.push('a')
+    stack.push('3')
+    stack.push([1, 2, 3])
+    stack.show()
+    print(stack.top())
+    print(stack.size())
+    stack.pop()
+    stack.pop()
+    print(stack.empty())
+    stack.pop()
+    print(stack.empty())
