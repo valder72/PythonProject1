@@ -9,6 +9,8 @@ def binary_search(arr, tar):
             low = mid + 1
         else:
             high = mid - 1
+    return False
+
 if __name__ == '__main__':
     count = 0
     N = [-4,-3,-2,-1, 0, 1, 2, 3, 4]
