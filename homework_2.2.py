@@ -3,7 +3,6 @@ class Node:
         self.data = data
         self.next = next
 
-
 def parse(string):
     if string == "None":
         return None
@@ -16,9 +15,12 @@ def parse(string):
 
 def linked_list(node):
     output = []
+
     while node:
-        output.append(str(node.data))
+        output.append(node.data)
         node = node.next
-    print(" -> ".join(output) + " -> None")
+
+    print(output)
 
 if __name__ == "__main__":
+    linked_list(parse("1 -> 2 -> None"))
