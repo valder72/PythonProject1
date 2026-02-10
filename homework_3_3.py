@@ -5,17 +5,18 @@ def random_list(size):
 
 def get_inversion(arr):
     output = []
-    for i in range(len(arr)):
+    n = len(arr)
+
+    for i in range(n):
         j = i + 1
-        while j < len(arr):
+        for j in range (i + 1, n):
             if arr[j] < arr[i]:
                 output.append((arr[i], arr[j]))
-            j += 1
 
     return output
 
 def is_partially_sorted(arr, k):
-    return len(get_inversion(arr)) <= k * len(arr)
+    return len(get_inversion(arr)) < k * len(arr)
 
 def test_inversion(size):
     print(get_inversion(random_list(size)))
