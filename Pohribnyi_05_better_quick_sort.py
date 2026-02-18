@@ -133,17 +133,27 @@ def run_benchmark(label, data_generator, sizes):
             ("Better Hoare quick sort", better_hoare_quick_sort)
         ]
 
-        for name, func in algorithms:
-            data_copy = original_data.copy()
-            n = len(data_copy)
-            print(f"{name}({i:_}): ", end="")
-            start = time.time()
-            func(data_copy, 0, n - 1)
-            print(f"{time.time() - start:.6f} сек\n")
+        if i == 10:
+            for name, func in algorithms:
+                data_copy = original_data.copy()
+                n = len(data_copy)
+                print(f"{name}({i:_}): ", end="")
+                start = time.time()
+                func(data_copy, 0, n - 1)
+                print(f"{time.time() - start:.7f} сек")
+                print(data_copy, "\n")
+        else:
+            for name, func in algorithms:
+                data_copy = original_data.copy()
+                n = len(data_copy)
+                print(f"{name}({i:_}): ", end="")
+                start = time.time()
+                func(data_copy, 0, n - 1)
+                print(f"{time.time() - start:.6f} сек\n")
 
 
 def test():
-    sizes = [100, 1_000, 10_000]
+    sizes = [0, 10, 100, 1_000, 10_000]
 
     run_benchmark("SORTED DATA", generate_data, sizes)
     run_benchmark("PARTIALLY SORTED DATA", generate_partially_sorted, sizes)
