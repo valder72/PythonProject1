@@ -7,6 +7,7 @@ import random
 import time
 import sys
 
+
 def lomuto_partition(array, low, high):
     pivot = array[high]
     i = low - 1
@@ -96,8 +97,10 @@ def better_hoare_quick_sort(array, low, high):
     better_hoare_quick_sort(array, low, pi - 1)
     better_hoare_quick_sort(array, pi + 1, high)
 
+
 def generate_data(size):
     return list(range(0, size))
+
 
 def generate_random_data(arr):
     for i in range(len(arr)):
@@ -105,14 +108,17 @@ def generate_random_data(arr):
         arr[i], arr[r] = arr[r], arr[i]
     return arr
 
+
 def generate_partially_sorted(size):
     first_el = int(size * 0.9)
     second_el = list(range(first_el, size))
     generate_random_data(second_el)
     return list(range(0, first_el)) + second_el
 
+
 def generate_reverse_data(size):
     return list(range(size, -1, -1))
+
 
 def run_benchmark(label, data_generator, sizes):
     print(f"[{label}]\n")
@@ -143,7 +149,6 @@ def test():
     run_benchmark("PARTIALLY SORTED DATA", generate_partially_sorted, sizes)
     run_benchmark("RANDOM DATA", lambda s: generate_random_data(generate_data(s)), sizes)
     run_benchmark("REVERSE DATA", generate_reverse_data, sizes)
-
 
 
 if __name__ == '__main__':
