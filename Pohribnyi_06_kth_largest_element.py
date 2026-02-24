@@ -11,7 +11,7 @@ the pointers still move. Otherwise, it gets stuck in an infinite loop.
 Also, I changed the sorting order. Bigger numbers go to the left, smaller to 
 the right. Then it just recursively checks if we hit the target k. If the index 
 is bigger than our target, we search the left part. If it's smaller, we go right. 
-If they match, we found it! Also, k starts from 1, not 0. And if you pass an empty list,
+If they match, we found it! Although, k starts from 1, not 0. And if you pass an empty list,
 it just returns None so the program doesn't crash.
 
 Time Complexity:
@@ -100,7 +100,7 @@ def generate_partially_sorted(size):
 
 
 def generate_reverse_data(size):
-    return list(range(size, -1, -1))
+    return list(range(size - 1, -1, -1))
 
 
 def run_benchmark(label, data_generator, sizes):
