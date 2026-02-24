@@ -10,6 +10,7 @@ the right. Then it just recursively checks if we hit the target k. If the index
 is bigger than our target, we search the left part. If it's smaller, we go right. 
 If they match, we found it! Also, k starts from 1, not 0. And if you pass an empty list,
 it just returns None so the program doesn't crash."""
+
 import time
 import random
 import sys
