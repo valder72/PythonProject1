@@ -1,5 +1,5 @@
 """
-17/02/2026
+18/02/2026
 @author: Volodymyr Pohribnyi
 """
 
@@ -157,7 +157,11 @@ def test():
 
     run_benchmark("SORTED DATA", generate_data, sizes)
     run_benchmark("PARTIALLY SORTED DATA", generate_partially_sorted, sizes)
-    run_benchmark("RANDOM DATA", lambda s: generate_random_data(generate_data(s)), sizes)
+    run_benchmark(
+        "RANDOM DATA",
+        lambda s: generate_random_data(generate_data(s)),
+        sizes
+    )
     run_benchmark("REVERSE DATA", generate_reverse_data, sizes)
 
 
