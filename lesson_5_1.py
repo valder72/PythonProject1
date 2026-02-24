@@ -1,43 +1,40 @@
-class HeapSort:
-    def __init__(self, elements):
-        self._elements = [None] + elements
-        self._capacity = len(elements)
 
-        # build the heap
-        k = self._capacity // 2
-        while k >= 1:
-            self._sink(k)
-            k -= 1
+def partition(arr, lt, gt):
+    # To handle 2 elements
+    if gt - lt <= 1:
+        if arr[gt] < arr[lt]:
+            arr[gt], arr[lt] = arr[lt], arr[gt]
+        return lt, gt
 
-        # "delete" the max element at each iteration
-        while self._capacity > 1:
-            self._exch(1, self._capacity)
-            self._capacity -= 1
-            self._sink(1)
+    i = lt
+    pivot = arr[gt]
+    while i <= gt:
+        if arr[i] < pivot:
+            arr[lt], arr[i] = arr[i], arr[lt]
+            lt += 1
+            i += 1
+        elif arr[i] == pivot:
+            i += 1
+        elif arr[i] > pivot:
+            arr[i], arr[gt] = arr[gt], arr[i]
+            gt -= 1
+    return lt - 1, i
 
-    def sorted(self):
-        return self._elements[1:]
 
-    def _sink(self, k):
-        while 2 * k <= self._capacity:
-            j = 2 * k
-            if j < self._capacity and self._less(j, j + 1):
-                j += 1
-            if not self._less(k, j):
-                break
-            self._exch(k, j)
-            k = j
+# 3-way partition based quick sort
+def quick_sort(a, low, high):
+    if low >= high:
+        return
 
-    def _exch(self, k, j):
-        self._elements[k], self._elements[j] = self._elements[j], self._elements[k]
+    lt, gt = partition(a, low, high)
 
-    def _less(self, i, j):
-        return self._elements[i] < self._elements[j]
+    quick_sort(a, low, lt)
+    quick_sort(a, gt, high)
+
+def generate_repetitive_data(size);
 
 
 if __name__ == "__main__":
-    arr = [1, 12, 9, 5, 6, 10]
-    heapSort = HeapSort(arr)
-    result = heapSort.sorted()
-    print("Sorted array is")
-    print(result)
+    pass
+    # TODO add tests
+

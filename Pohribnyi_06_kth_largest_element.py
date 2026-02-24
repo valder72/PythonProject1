@@ -2,14 +2,27 @@
 24/02/2026
 @author: Volodymyr Pohribnyi
 """
-"""Basically, I took the Hoare partition method because it's faster 
+
+"""
+Explanation: 
+Basically, I took the Hoare partition method because it's faster 
 than Lomuto. I tweaked it a bit so that if the numbers are the exact same, 
 the pointers still move. Otherwise, it gets stuck in an infinite loop.
 Also, I changed the sorting order. Bigger numbers go to the left, smaller to 
 the right. Then it just recursively checks if we hit the target k. If the index 
 is bigger than our target, we search the left part. If it's smaller, we go right. 
 If they match, we found it! Also, k starts from 1, not 0. And if you pass an empty list,
-it just returns None so the program doesn't crash."""
+it just returns None so the program doesn't crash.
+
+Time Complexity:
+The average time complexity of this algorithm is O(N) because, unlike standard QuickSort, 
+we only recurse into one half of the partition each time. To ensure the algorithm works 
+equally well for both random and already-sorted lists, I implemented the "Median-of-Three" 
+pivot selection. By looking at the first, middle, and last elements and using their 
+median as the pivot, it forces a balanced split. This prevents the algorithm from 
+degrading to its worst-case O(N^2) time complexity when the input is sorted or 
+reverse-sorted.
+"""
 
 import time
 import random
@@ -104,8 +117,7 @@ def run_benchmark(label, data_generator, sizes):
             for name, func in algorithms:
                 data_copy = original_data
                 n = len(data_copy)
-                # Перевірка на порожній масив
-                num = func(data_copy, 0, n - 1, i) if n > 0 else None
+                num = func(data_copy, 0, n - 1, i)
                 print(f"{name}({i:_}): {num}\n")
             continue
 
