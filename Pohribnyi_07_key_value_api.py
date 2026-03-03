@@ -1,3 +1,9 @@
+"""
+03/03/2026
+@author: Volodymyr Pohribnyi
+"""
+
+
 class Node:
     def __init__(self, key=None, val=None):
         self.key = key
