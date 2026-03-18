@@ -1,3 +1,6 @@
+import copy
+
+
 class Patient:
     DIAGNOSIS_PRIORITY = {
         'вивих гомілки': 1,
@@ -15,6 +18,8 @@ class Patient:
         self.priority_level = self.DIAGNOSIS_PRIORITY.get(diagnosis.lower(), 1)
 
     def __lt__(self, other):
+        if self.priority_level == other.priority_level:
+            return self.age > other.age
         return self.priority_level < other.priority_level
 
     def __repr__(self):
@@ -27,7 +32,9 @@ class BinaryMaxPQ:
         self._capacity = 0
 
     def __str__(self):
-        return "\n".join(f"  {i}. {p}" for i, p in enumerate(self._elements[1:], 1))
+        array_copy = copy.deepcopy(self._elements[1:])
+        array_copy.sort(reverse=True)
+        return "\n".join(f"  {i}. {p}" for i, p in enumerate(array_copy, 1))
 
     def _swim(self, k):
         while k > 1 and self._less(k // 2, k):
@@ -97,7 +104,10 @@ if __name__ == "__main__":
     er.register_patient("Ганна", 37, "грип")
     er.register_patient("Сергій", 58, "підозра на апендицит")
     er.register_patient("Іван", 29, "проблеми з диханням")
-    er.register_patient("Аліса", 17, "вивих гомілки")
+    er.register_patient("Аліса", 17, "перелом")
+    er.register_patient("Сергій", 48, "підозра на апендицит")
+    er.register_patient("Іван", 19, "проблеми з диханням")
+    er.register_patient("Аліса", 27, "перелом")
 
     er.display_queue()
 

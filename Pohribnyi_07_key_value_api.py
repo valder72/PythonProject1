@@ -17,7 +17,8 @@ class KeyValueBST:
     def __init__(self):
         self._root = None
 
-    def _size(self, node):
+    @staticmethod
+    def _size(node):
         if node is None:
             return 0
         return node.count
@@ -31,8 +32,16 @@ class KeyValueBST:
                 return 0
             if self.contains(hi):
                 return self.rank(hi) - self.rank(lo) + 1
-            else:
-                return self.rank(hi) - self.rank(lo)
+            return self.rank(hi) - self.rank(lo)
+
+        if lo is None:
+            if self.contains(hi):
+                return self.rank(hi) + 1
+            return self.rank(hi)
+
+        if hi is None:
+            return self._size(self._root) - self.rank(lo)
+
         return 0
 
     def is_empty(self):
@@ -267,6 +276,8 @@ def test():
     assert bst.select(3) == 10, "Елемент з індексом 3 (4-й найменший) має бути 10"
 
     assert bst.size(5, 15) == 4, "Кількість ключів від 5 до 15: 4 штуки (8, 10, 12, 15)"
+    assert bst.size(None, 15) == 6, "Кількість ключів від початку до 15: 6 штуки (2, 4, 8, 10, 12, 15)"
+    assert bst.size(5, None) == 5, "Кількість ключів від 5 до кінця: 5 штуки (8, 10, 12, 15, 20)"
     assert bst.keys(5, 15) == [8, 10, 12, 15], "Список ключів в діапазоні [5, 15]"
 
     keys_from_iter = [k for k in bst]
