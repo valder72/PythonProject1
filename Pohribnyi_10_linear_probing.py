@@ -16,8 +16,8 @@ class MyHashTable:
         return hash(key) % self.slots
 
     def put(self, key, value):
-        self._rehashing()
         self._put(key, value)
+        self._rehashing()
 
     def _put(self, key, value):
         """
@@ -57,8 +57,6 @@ class MyHashTable:
             hash_el += 1
             if hash_el == self.slots:
                 hash_el = 0
-            if hash_el == start_hash:
-                break
 
         return None
 
